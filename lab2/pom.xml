@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sistdist</groupId>
+    <artifactId>lab2</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>24</maven.compiler.release>
+        <!-- propriedade usada pelo Shade Plugin para definir o Main-Class -->
+        <main.class>com.sistdist.lab2.Lab2</main.class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250107</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin para compilar com Java release específico -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin para gerar fat-JAR com dependências embutidas -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Substitui o Manifest do JAR gerado -->
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${main.class}</mainClass>
+                                </transformer>
+                            </transformers>
+                            <!-- Substitui o JAR original em vez de anexar um classifier -->
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Perfil para o Servidor -->
+        <profile>
+            <id>servidor</id>
+            <properties>
+                <main.class>com.sistdist.lab2.Servidor</main.class>
+            </properties>
+            <build>
+                <!-- Nome do JAR final sem versão -->
+                <finalName>lab2-servidor</finalName>
+            </build>
+        </profile>
+
+        <!-- Perfil para o Cliente -->
+        <profile>
+            <id>cliente</id>
+            <properties>
+                <main.class>com.sistdist.lab2.Cliente</main.class>
+            </properties>
+            <build>
+                <!-- Nome do JAR final sem versão -->
+                <finalName>lab2-cliente</finalName>
+            </build>
+        </profile>
+    </profiles>
+</project>

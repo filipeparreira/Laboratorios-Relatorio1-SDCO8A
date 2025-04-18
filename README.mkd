@@ -1,0 +1,16 @@
+# Laboratórios Lista 1 - Sistemas Distribuídos - SDCO8A
+## Integrantes do grupo:
+* Filipe Augusto Parreira Almeida - RA: 2320622
+* Mabylly Kauany Neres da Silva - RA: 2368013
+
+## Observações e instruções para execução dos laboratórios
+Caso haja necessidade de execução dos laboratórios, basta clonar o repositório.
+
+- Lab1: A execução do laboratório 1 requer que informe o caminho para o arquivo *.txt* para a base de dados. Sendo assim é necessário que abra o código-fonte, que está localizado em ***/lab1/src/main/java/com/sistdist/lab1***.
+
+- Lab2: Para execução mais simples e permitindo-a em terminal, é necessário que abra a pasta */lab2* e então a pasta */executaveis*. Nela é contido os arquivos *.jar* de cada classe, **Servidor** e **Cliente**. A execução do **Servidor** exige que se passe parâmetro via linha de comando, tal parâmetro é o endereço do arquivo *.txt* que representa da base de dados [fortune-br](https://github.com/OpenBSD-BR/bagre/blob/master/fortune-br). Logo, já dentro da pasta */executaveis* basta utilizar os seguintes comandos:
+    - Servidor: `java -jar lab2-servidor.jar <CAMINHO_DB>`
+
+    - Cliente: `java -jar lab2-cliente.jar`
+
+    - É necessário que inicialize primeiro o servidor para que então execute o cliente.
